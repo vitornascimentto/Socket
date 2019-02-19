@@ -2,9 +2,10 @@ from __future__ import unicode_literals
 import youtube_dl
 import youtube
 from socket import *
+import os
 
 meuHost = ''
-minhaPort = 30801
+minhaPort = 30808
 sockObj = socket(AF_INET, SOCK_STREAM)
 
 sockObj.bind((meuHost, minhaPort))
@@ -16,19 +17,21 @@ for i in range(1):
     conexao, endereco = sockObj.accept()
     print('O servidor está conectado por', endereco)
 
-    data = conexao.recv(1024).decode()
-    print('link:', data)
+    url = conexao.recv(1024).decode('utf-8')
+
+    yt.setParametros(url)
+    yt.download(url)
     
-    if not data:
-        print('No data')
-        break
+    conexao.send(yt.getTitulo(url).encode('utf-8'))
 
-    yt.setParametros(data)
-    yt.download(data)
+    with open('{}.mp3'.format(yt.getTitulo(url)), 'rb') as f: 
+        arquivo = f.read(10240)
+    
+        while arquivo:    
+            conexao.send(arquivo)
+            arquivo = f.read(10240)
 
-    with open('{}.mp3'.format(yt.getTitulo(data)), 'rb') as arquivo:  
-        l = arquivo.read(100000)    
-        conexao.send(l)
-
+        os.remove('{}.mp3'.format(yt.getTitulo(url)))
+        
 conexao.close()
 
