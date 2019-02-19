@@ -35,6 +35,15 @@ class Youtube:
             informacoes = ydl.extract_info(url, download=False)
         return('Título: {}, duração: {}s, qualidade: {}k.'.format(informacoes['title'], informacoes['duration'], self.parametros['postprocessors'][0]['preferredquality']))
 
+    def getSplit(self, string):
+        string = string.split('|')
+
+        for i in range(len(string)):
+            if string[i] == 'None':
+                string[i] = None
+        
+        return string
+
     def download(self, url):
         with youtube_dl.YoutubeDL(self.parametros) as ydl:
             ydl.download([url])

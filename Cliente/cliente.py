@@ -1,18 +1,19 @@
+import menu
 from socket import *
 
 serverHost = 'localhost'
-serverPort = 30808
+serverPort = 30805
 
 sockObj = socket(AF_INET, SOCK_STREAM)
 sockObj.connect((serverHost, serverPort))
 
-#https://www.youtube.com/watch?v=8TqSsx0Y7Gg
-
-link = str(input('Digite o link do vídeo: ')).encode('utf-8')
-
-sockObj.send(link)
+        
+sockObj.send(menu.menu().encode('utf-8'))
 
 titulo = sockObj.recv(1024).decode('utf-8')
+#status = sockObj.recv(1024).decode('utf-8')
+
+#print(status)
 
 with open('{}.mp3'.format(titulo),'wb') as f:
     l = sockObj.recv(10240)
