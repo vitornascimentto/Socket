@@ -7,7 +7,7 @@ def menu():
             print('URL inválida.')
             continue
     
-    titulo = str(input('Título para o arquivo MP3: '))
+    titulo = str(input('Título para o arquivo .mp3: '))
     if titulo == '':
         titulo = None
     

@@ -1,0 +1,10 @@
+ Forneça o link de algum vídeo no YouTube e receba um arquivo .mp3 com o título e qualidade desejada.
+ 
+ Observações:
+
+ Executar os arquivos run.sh no terminal.
+ p. Ex. bash run.sh
+ 
+ Ao fazer isso, o script vai instalar a biblioteca requerida (requirements.txt) e executar o arquivo main.py correspondente.
+ 
+ Os campos titulo e qualidade que são pedidos durante a execução do cliente podem ser ignorados - Não digitar nada e teclar "Enter" - seus valores serão definidos como default.
